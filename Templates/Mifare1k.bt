@@ -3,13 +3,13 @@
 //
 //      File: Mifare1k.bt
 //    Author: ilanyu
-//   Version: 1.2
+//   Version: 1.1
 //   Purpose: Parse MIFARE Classic 1k, NXP Card.
 //  Category: Electronics
 // File Mask: 
 //   History: 
-//   1.2   2017-9-27   ilanyu:  show BCC
-//   1.1   2017-9-23   ilanyu:  beta
+//   1.1   2017-9-27   ilanyu:  show BCC
+//   1.0   2017-9-23   ilanyu:  beta
 //
 //	For MIFARE Classic 1k, NXP
 //------------------------------------------------
