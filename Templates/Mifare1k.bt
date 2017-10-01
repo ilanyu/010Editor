@@ -1,0 +1,82 @@
+//------------------------------------------------
+//--- 010 Editor Binary Template
+//
+//      File: Mifare1k.bt
+//    Author: ilanyu
+//   Version: 1.2
+//   Purpose: Parse MIFARE Classic 1k, NXP Card.
+//  Category: Electronics
+// File Mask: 
+//   History: 
+//   1.2   2017-9-27   ilanyu:  show BCC
+//   1.1   2017-9-23   ilanyu:  beta
+//
+//	For MIFARE Classic 1k, NXP
+//------------------------------------------------
+LittleEndian();
+
+SetBackColor( cGray );
+
+typedef struct
+{
+    unsigned byte uid[4] <format=hex, name="UID">;
+    byte bcc <format=hex, name="BCC">;
+    byte sak <format=decimal, name="SAK">;
+    byte atqa[2] <format=decimal, name="ATQA">;
+    byte data[8] <fgcolor=cPurple>;
+} Factor_Block <fgcolor=cPurple>;
+
+string get_bcc(Factor_Block &factor_block) {
+    local string bcc;
+    SPrintf(bcc, "%X", factor_block.uid[0] ^ factor_block.uid[1] ^ factor_block.uid[2] ^ factor_block.uid[3]);
+    return bcc;
+}
+
+string show_bcc(Factor_Block &factor_block) {
+    local string bcc;
+    SPrintf(bcc, "BCC: %X", factor_block.uid[0] ^ factor_block.uid[1] ^ factor_block.uid[2] ^ factor_block.uid[3]);
+    return bcc;
+}
+
+typedef struct
+{
+    byte data[16] <fgcolor=cWhite>;
+} Data_Block;
+
+typedef struct 
+{
+    byte keyA[6] <fgcolor=cGreen, format=hex, name="Key_A">;
+    byte ACbits[3]<fgcolor=cLtYellow, format=hex, name="AC bits">;
+    byte GPB[1] <fgcolor=cLtYellow, format=hex, name="GPB">;
+    byte keyB[6] <fgcolor=cDkGreen, format=hex, name="Key_B">;
+} Pass_Block;
+
+typedef struct
+{
+    Data_Block data_block[3] <name="Data Block">;
+    Pass_Block pass_block <name="Password and AC bits">;
+} Sector;
+
+struct Sector_0
+{
+    Factor_Block factor_block <name="Factor Block", comment=show_bcc>;
+    Data_Block data_block[2] <name="Data Block">;
+    Pass_Block pass_block <name="Password and AC bits Block">;
+} sector_0 <name="Sector 0">;
+
+Sector sector <name="Sector 1">;
+Sector sector <name="Sector 2">;
+Sector sector <name="Sector 3">;
+Sector sector <name="Sector 4">;
+Sector sector <name="Sector 5">;
+Sector sector <name="Sector 6">;
+Sector sector <name="Sector 7">;
+Sector sector <name="Sector 8">;
+Sector sector <name="Sector 9">;
+Sector sector <name="Sector 10">;
+Sector sector <name="Sector 11">;
+Sector sector <name="Sector 12">;
+Sector sector <name="Sector 13">;
+Sector sector <name="Sector 14">;
+Sector sector <name="Sector 15">;
+
